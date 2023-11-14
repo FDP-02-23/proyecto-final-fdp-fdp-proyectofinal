@@ -33,6 +33,29 @@ int dado(){
     return distribucion(gen); 
 }
 //=========================================================================================================
+//funcion para "correr" o salir de combate
+int correr(entidad personaje){
+    int opDescansar;
+    cout<<"Corres y te escondes del monstruo mientras el se va"<<endl;
+            //el personaje vuelve a la camara anterior:
+            do{
+                cout<<"Desea descansar?"<<endl;
+                cout<<"1. Si"<<endl;
+                cout<<"2. No"<<endl;
+                cin>>opDescansar;
+                if(opDescansar == 1){
+                    //llamar funcion descansar:
+
+                }else if(opDescansar == 2){
+                    cout<<"Entendido"<<endl;
+
+                }else{
+                    cout<<"Opcion invalida!"<<endl;
+                }
+            }while(opDescansar != 1 && opDescansar != 2);
+    return personaje.hp;
+}
+//=========================================================================================================
 //funciones para los turnos
 //funcion para el turno del personaje
 bool TurnoPersonaje(int monstruoEnCombate, entidad*monstruos,entidad personaje,int ataqueBonoPersonaje, bool finCombate){
@@ -107,7 +130,7 @@ bool TurnoPersonaje(int monstruoEnCombate, entidad*monstruos,entidad personaje,i
                     cout<<"Opcion invalida!!"<<endl;
                 break;
             }
-        }while(turnoTerminado == false && op != 1 && op != 2 && op != 3);
+        }while(op != 1 && op != 2 && op != 3);
     return finCombate;
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -139,51 +162,57 @@ int TurnoMonstruo(entidad personaje, int ataqueBonoMonstruo, bool finCombate){
 //Funcion principal del enfrentamiento entre ambas entidades
 int enfrentamiento(int monstruoEnCombate,entidad*monstruos,entidad personaje,int ataqueBonoPersonaje, int ataqueBonoMonstruo, bool finCombate){ //para el turno y enseñar los demas datos, igual del personaje
     int op;
-    cout<<"Empieza el combate!!"<<endl;
-    cout<<"Aventurero, tira tu dado!"<<endl;
-    cout<<"1. Tirar dado"<<endl;
-    cout<<"2. Correr"<<endl;
-    cin>>op;
+    do{
+        cout<<"Empieza el combate!!"<<endl;
+        cout<<"Aventurero, tira tu dado!"<<endl;
+        cout<<"1. Tirar dado"<<endl;
+        cout<<"2. Correr"<<endl;
+        cin>>op;
 
-    if(op == 1){
-        int dadoMonstruo,dadoPersonaje;
-        do{
-            dadoPersonaje = dado();
-            dadoMonstruo = dado();
-            cout<<"Obtuviste un "<<dadoPersonaje<<endl;
-            cout<<"El enemigo tira el dado y obtiene un "<<dadoMonstruo<<endl;
-            if(dadoPersonaje > dadoMonstruo){
-                cout<<"======================================================================"<<endl;
-                cout<<"Empiezas tu aventurero!"<<endl;
-                do{
-                    cout<<"Ahora vas tu aventurero!"<<endl;
-                    finCombate = TurnoPersonaje(monstruoEnCombate,monstruos,personaje,ataqueBonoPersonaje,finCombate);
+        if(op == 1){
+            int dadoMonstruo,dadoPersonaje;
+            do{
+                dadoPersonaje = dado();
+                dadoMonstruo = dado();
+                cout<<"Obtuviste un "<<dadoPersonaje<<endl;
+                cout<<"El enemigo tira el dado y obtiene un "<<dadoMonstruo<<endl;
+                if(dadoPersonaje > dadoMonstruo){
                     cout<<"======================================================================"<<endl;
-                    if (finCombate == false){
+                    cout<<"Empiezas tu aventurero!"<<endl;
+                    do{
+                        cout<<"Ahora vas tu aventurero!"<<endl;
+                        finCombate = TurnoPersonaje(monstruoEnCombate,monstruos,personaje,ataqueBonoPersonaje,finCombate);
+                        cout<<"======================================================================"<<endl;
+                        if (finCombate == false){
+                            cout<<"Ahora es el turno del enemigo!"<<endl;
+                            finCombate =TurnoMonstruo(personaje,ataqueBonoMonstruo,finCombate);
+                            cout<<"======================================================================"<<endl;
+                        }
+                    }while(finCombate == false);
+                }else if(dadoPersonaje < dadoMonstruo){
+                    cout<<"====================================================================="<<endl;
+                    cout<<"Empieza el enemigo!"<<endl;
+                    do{
                         cout<<"Ahora es el turno del enemigo!"<<endl;
                         finCombate =TurnoMonstruo(personaje,ataqueBonoMonstruo,finCombate);
                         cout<<"======================================================================"<<endl;
-                    }
-                }while(finCombate == false);
-            }else if(dadoPersonaje < dadoMonstruo){
-                cout<<"====================================================================="<<endl;
-                cout<<"Empieza el enemigo!"<<endl;
-                do{
-                    cout<<"Ahora es el turno del enemigo!"<<endl;
-                    finCombate =TurnoMonstruo(personaje,ataqueBonoMonstruo,finCombate);
-                    cout<<"======================================================================"<<endl;
-                    if (finCombate == false){
-                        cout<<"Ahora es tu turno aventurero!"<<endl;
-                        finCombate = TurnoPersonaje(monstruoEnCombate,monstruos,personaje,ataqueBonoPersonaje,finCombate);
-                        cout<<"======================================================================"<<endl;
-                    }
-                }while(finCombate == false);
-            }else{
-                cout<<"Ambos dados salieron iguales!!"<<endl;
-                cout<<"Se repite!"<<endl;
-            }
-        }while(dadoPersonaje != dadoMonstruo && finCombate == false);
-    }
+                        if (finCombate == false){
+                            cout<<"Ahora es tu turno aventurero!"<<endl;
+                            finCombate = TurnoPersonaje(monstruoEnCombate,monstruos,personaje,ataqueBonoPersonaje,finCombate);
+                            cout<<"======================================================================"<<endl;
+                        }
+                    }while(finCombate == false);
+                }else{
+                    cout<<"Ambos dados salieron iguales!!"<<endl;
+                    cout<<"Se repite!"<<endl;
+                }
+            }while(dadoPersonaje != dadoMonstruo && finCombate == false);
+        }else if(op == 2){
+            correr(personaje);
+        }else{
+            cout<<"Opcion invalida"<<endl;
+        }
+    }while(op != 1 && op != 2);
     return personaje.hp;
 }
 //==========================================================================================================
@@ -235,4 +264,6 @@ int main(){
     ataqueBonoMonstruo = bonoMonstruo(monstruos,monstruoEnCombate);
     
     hp = enfrentamiento(monstruoEnCombate,monstruos,personaje,ataqueBonoPersonaje,ataqueBonoMonstruo,finCombate);
+    
+
 }
