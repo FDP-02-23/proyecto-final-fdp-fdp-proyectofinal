@@ -73,10 +73,6 @@ bool TurnoPersonaje(int monstruoEnCombate, entidad*monstruos,entidad personaje,i
                                 cout<<"Con el primer dado salio un "<<daño1<<" y con el segundo un "<<daño2<<"!!"<<endl;
                                 cout<<"Tu bono de ataque es "<<ataqueBonoPersonaje<<" por lo que tu danio total es "<<(daño1 + daño2 + ataqueBonoPersonaje)*critico<<endl;
                                 //llamar funcion quitar vida:
-                                //luego quitar
-                                monstruos[monstruoEnCombate].hp = monstruos[monstruoEnCombate].hp - 5;
-                                personaje.hp = personaje.hp - 15;
-                                cout<<personaje.hp<<" "<<monstruos[monstruoEnCombate].hp;
 
                                 if(monstruos[monstruoEnCombate].hp <= 0){
                                     cout<<"Lo lograste!! Venciste al enemigo!"<<endl;
@@ -130,9 +126,6 @@ int TurnoMonstruo(entidad personaje, int ataqueBonoMonstruo, bool finCombate){
                             cout<<"Con el primer dado salio un "<<daño1<<" y con el segundo un "<<daño2<<"!!"<<endl;
                             cout<<"El bono de ataque del enemigo es "<<ataqueBonoMonstruo<<" por lo que su daño total es "<<daño1 + daño2 + ataqueBonoMonstruo<<endl;
                             //llamar funcion quitar vida:
-                            //luego quitar x2
-                            personaje.hp = personaje.hp - 75;
-                            cout<<personaje.hp;
                             if(personaje.hp <= 0){
                                 cout<<"EL enemigo logra vencerte, pides piedad pero lo unico que le importa al monstruo es sangre!"<<endl;
                                 finCombate = true;
@@ -198,11 +191,13 @@ int main(){
     //variables
     int acertarAtaque, ataque1, ataque2, ataqueBonoPersonaje,ataqueBonoMonstruo, monstruoEnCombate,hp;
     bool finCombate = false;
-    entidad personaje;
+
+    entidad personaje;//estadisticas del personaje
     personaje.hp = 75;
     personaje.def = 1;
     personaje.atk = 10;
-    entidad monstruos[5];
+
+    entidad monstruos[5];//estadisticas de los monstruos
     //posicion 0 es la del duende   |hp30,def7,atk6 
     //posicion 1 es la del esqueleto|hp45,def12,atk8 
     //posicion 2 es la del mimic    |hp50,def8,atk12 
@@ -234,12 +229,10 @@ int main(){
     monstruos[4].def = 16;
     monstruos[4].atk = 16;
 
-    monstruoEnCombate = 0;
+    monstruoEnCombate = 0;//esta variable sirve para saber contra que monstruo peleara, es la posicion del array monstruos
 
     ataqueBonoPersonaje = bonoPersonaje(personaje);
     ataqueBonoMonstruo = bonoMonstruo(monstruos,monstruoEnCombate);
     
     hp = enfrentamiento(monstruoEnCombate,monstruos,personaje,ataqueBonoPersonaje,ataqueBonoMonstruo,finCombate);
-    cout<<"Su vida es "<<hp<<" y la vida de su enemigo es "<<monstruos[monstruoEnCombate].hp<<endl;
-
 }
