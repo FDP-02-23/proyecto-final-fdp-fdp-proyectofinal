@@ -4,7 +4,7 @@ using namespace std;
 
 //struct para las entidades
 struct entidad{
-int hp = 75, def = 1, atk = 10;
+int hp, def, atk;
 };
 
 //funciones
@@ -35,10 +35,13 @@ int dado(){
 //=========================================================================================================
 //funciones para los turnos
 //funcion para el turno del personaje
-bool TurnoPersonaje(int monstruoEnCombate, entidad*monstruos,int ataqueBonoPersonaje, bool finCombate){
+bool TurnoPersonaje(int monstruoEnCombate, entidad*monstruos,entidad personaje,int ataqueBonoPersonaje, bool finCombate){
     int op,op2,acertarAtaque,critico = 1;//variable opcion2 para poder tirar los dados
     bool turnoTerminado = false;
         do{
+            cout<<"Tu vida es "<<personaje.hp;
+            cout<<"La vida de tu enemigo es"<<monstruos[monstruoEnCombate].hp<<endl;
+            cout<<endl;
             cout<<"1. Tirar dado"<<endl;
             cout<<"3. Usar pocion"<<endl;
             cout<<"3. Correr"<<endl;
@@ -70,6 +73,10 @@ bool TurnoPersonaje(int monstruoEnCombate, entidad*monstruos,int ataqueBonoPerso
                                 cout<<"Con el primer dado salio un "<<daño1<<" y con el segundo un "<<daño2<<"!!"<<endl;
                                 cout<<"Tu bono de ataque es "<<ataqueBonoPersonaje<<" por lo que tu danio total es "<<(daño1 + daño2 + ataqueBonoPersonaje)*critico<<endl;
                                 //llamar funcion quitar vida:
+                                //luego quitar
+                                monstruos[monstruoEnCombate].hp = monstruos[monstruoEnCombate].hp - 5;
+                                personaje.hp = personaje.hp - 15;
+                                cout<<personaje.hp<<" "<<monstruos[monstruoEnCombate].hp;
 
                                 if(monstruos[monstruoEnCombate].hp <= 0){
                                     cout<<"Lo lograste!! Venciste al enemigo!"<<endl;
@@ -123,6 +130,9 @@ int TurnoMonstruo(entidad personaje, int ataqueBonoMonstruo, bool finCombate){
                             cout<<"Con el primer dado salio un "<<daño1<<" y con el segundo un "<<daño2<<"!!"<<endl;
                             cout<<"El bono de ataque del enemigo es "<<ataqueBonoMonstruo<<" por lo que su daño total es "<<daño1 + daño2 + ataqueBonoMonstruo<<endl;
                             //llamar funcion quitar vida:
+                            //luego quitar x2
+                            personaje.hp = personaje.hp - 75;
+                            cout<<personaje.hp;
                             if(personaje.hp <= 0){
                                 cout<<"EL enemigo logra vencerte, pides piedad pero lo unico que le importa al monstruo es sangre!"<<endl;
                                 finCombate = true;
@@ -154,7 +164,7 @@ int enfrentamiento(int monstruoEnCombate,entidad*monstruos,entidad personaje,int
                 cout<<"Empiezas tu aventurero!"<<endl;
                 do{
                     cout<<"Ahora vas tu aventurero!"<<endl;
-                    finCombate = TurnoPersonaje(monstruoEnCombate,monstruos,ataqueBonoPersonaje,finCombate);
+                    finCombate = TurnoPersonaje(monstruoEnCombate,monstruos,personaje,ataqueBonoPersonaje,finCombate);
                     cout<<"======================================================================"<<endl;
                     if (finCombate == false){
                         cout<<"Ahora es el turno del enemigo!"<<endl;
@@ -171,7 +181,7 @@ int enfrentamiento(int monstruoEnCombate,entidad*monstruos,entidad personaje,int
                     cout<<"======================================================================"<<endl;
                     if (finCombate == false){
                         cout<<"Ahora es tu turno aventurero!"<<endl;
-                        finCombate = TurnoPersonaje(monstruoEnCombate,monstruos,ataqueBonoPersonaje,finCombate);
+                        finCombate = TurnoPersonaje(monstruoEnCombate,monstruos,personaje,ataqueBonoPersonaje,finCombate);
                         cout<<"======================================================================"<<endl;
                     }
                 }while(finCombate == false);
@@ -179,7 +189,7 @@ int enfrentamiento(int monstruoEnCombate,entidad*monstruos,entidad personaje,int
                 cout<<"Ambos dados salieron iguales!!"<<endl;
                 cout<<"Se repite!"<<endl;
             }
-        }while(dadoPersonaje != dadoMonstruo);
+        }while(dadoPersonaje != dadoMonstruo && finCombate == false);
     }
     return personaje.hp;
 }
@@ -189,6 +199,9 @@ int main(){
     int acertarAtaque, ataque1, ataque2, ataqueBonoPersonaje,ataqueBonoMonstruo, monstruoEnCombate,hp;
     bool finCombate = false;
     entidad personaje;
+    personaje.hp = 75;
+    personaje.def = 1;
+    personaje.atk = 10;
     entidad monstruos[5];
     //posicion 0 es la del duende   |hp30,def7,atk6 
     //posicion 1 es la del esqueleto|hp45,def12,atk8 
