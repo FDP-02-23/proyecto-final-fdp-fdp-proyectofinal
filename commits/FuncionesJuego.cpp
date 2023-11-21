@@ -99,6 +99,8 @@ entidad personaje;//estadisticas del personaje
     monstruos[4].def = 16;
     monstruos[4].atk = 16;
     
+    hp = Reducirhp(personaje.hp,60); //invocando funcion de reducir vida, el valor del daño cambia, esto es un ejemplo
+
     //simulando caso en el que se le pregunte al jugador si desea curarse con la pocion
     cout<<"Te hicieron daño, tu vida ahora es: "<<hp<<endl;
     cout<<"Deseas curarte con una pocion? 1(si)  2(No)"<<endl;
@@ -108,10 +110,20 @@ entidad personaje;//estadisticas del personaje
         {
             hp = Pocion(hp, pocion); //Funcion de la pocion que necesita los valores de la vida del jugador y la cantidad de vida q recupera la pocion (curacion de la pocion pendiente a determinar)
             cout<<"Su vida es (utilizando funcion Pocion): "<<hp<<endl;
-        }else if (op == 2)
-        {
-            cout<<"Tu vida es: "<<hp;
-        }
+        }else
+        cout<<"tu vida es: "<<hp<<endl;
 
+        if (hp <= 30)
+        {
+            cout<<"Tu vida es muy baja deseas descansar? si(1)  no(2)"<<endl;
+            cin>>op;
+            if (op == 1)
+            {
+                hp = Descansar(hp);
+                cout<<"Su vida despues de descansar es: "<<hp;
+            }else 
+            cout<<"Tu vida es: "<<hp;            
+        }
+        
     return 0;
 }
