@@ -5,6 +5,7 @@
 
 using namespace std;
 
+
 //Funcion utilizada para mostrale un temporizador al jugador de los segundos transcurridos y la vida que esta recuperando (valores dados por la funcion Descansar)
 void displayTimer(int hp, int seconds) {
     cout << setfill('0') << setw(2) << seconds << " sec | "<< hp<< " vida "<<endl;
@@ -16,7 +17,7 @@ int Descansar(int hp) {
     //Se inicializa un boolean utilizado para el temporizador
     bool timer = true;
     //Maneja los parametros del temporizador, ya que este llega a un maximo de 30 seg o hasta que la vida del jugador este al maximo
-    while (seconds < 30 && hp <75) {
+    while (seconds < 30 && hp <75) { //se removio el signo = de los 30 segundos
         displayTimer(hp,seconds); //datos utilizado por la funcion displayTimer
         sleep(1);
         hp++;
@@ -42,15 +43,67 @@ int Pocion(int hp, int pocion){
 }
 
 int main(){
-//Valores prototipos para probar su funcionalidad
-int hp = 15;
-int pocion = 20; //NOTA: valor de las pociones pendiente a especificar
-    
-    hp = Descansar(hp); //Funcion de descansa(Necesita los valores de la vida del jugador para funcionar)
-    cout<<"Su vida es (utilizando funcion Descansar): "<<hp<<endl;
 
-    hp = Pocion(hp, pocion); //Funcion de la pocion que necesita los valores de la vida del jugador y la cantidad de vida q recupera la pocion
-    cout<<"Su vida es (utilizando funcion Pocion): "<<hp<<endl;
+int hp, pocion = 20, op; //NOTA: valor de las pociones pendiente a especificar;
+
+struct entidad{
+int hp, def, atk;
+ 
+//se intregaron las estadisticas del jugador y de los monstruos
+};
+entidad personaje;//estadisticas del personaje
+    personaje.hp = 75;
+    personaje.def = 1;
+    personaje.atk = 10;
+
+    entidad monstruos[5];//estadisticas de los monstruos
+    //posicion 0 es la del duende   |hp30,def7,atk6 
+    //posicion 1 es la del esqueleto|hp45,def12,atk8 
+    //posicion 2 es la del mimic    |hp50,def8,atk12 
+    //posicion 3 es la del centauro |hp60,def14,atk10 
+    //posicion 4 es la del dragon   |hp90,def16,atk16 
+
+    //duende
+    monstruos[0].hp = 30;
+    monstruos[0].def = 7;
+    monstruos[0].atk = 6;
+
+    //esqueleto
+    monstruos[1].hp = 45;
+    monstruos[1].def = 12;
+    monstruos[1].atk = 5;
+
+    //mimic
+    monstruos[2].hp = 50;
+    monstruos[2].def = 8;
+    monstruos[2].atk = 12;
+
+    //centauro
+    monstruos[3].hp = 60;
+    monstruos[3].def = 14;
+    monstruos[3].atk = 10;
+
+    //dragon
+    monstruos[4].hp = 90;
+    monstruos[4].def = 16;
+    monstruos[4].atk = 16;
+    
+    //simulando caso en el q el jugador recibe daño (Funcion de reducir daño en proceso)
+    hp = personaje.hp - monstruos[4].atk;
+    
+    //simulando caso en el que se le pregunte al jugador si desea curarse con la pocion
+    cout<<"Te hicieron daño, tu vida ahora es: "<<hp<<endl;
+    cout<<"Deseas curarte con una pocion? 1(si)  2(No)"<<endl;
+    cin>>op;
+
+        if (op == 1)
+        {
+            hp = Pocion(hp, pocion); //Funcion de la pocion que necesita los valores de la vida del jugador y la cantidad de vida q recupera la pocion (curacion de la pocion pendiente a determinar)
+            cout<<"Su vida es (utilizando funcion Pocion): "<<hp<<endl;
+        }else if (op == 2)
+        {
+            cout<<"Tu vida es: "<<hp;
+        }
 
     return 0;
 }
