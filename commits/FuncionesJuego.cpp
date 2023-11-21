@@ -5,6 +5,12 @@
 
 using namespace std;
 
+struct Pociones
+{
+    int pequenia = 20;
+    int mediana = 40;
+    int grande = 75;
+};
 
 //Funcion utilizada para mostrale un temporizador al jugador de los segundos transcurridos y la vida que esta recuperando (valores dados por la funcion Descansar)
 void displayTimer(int hp, int seconds) {
@@ -55,8 +61,8 @@ int Reducirhp(int hp, int danio){
 
 int main(){
 
-int hp, danio, pocion = 20, op; //NOTA: valor de las pociones pendiente a especificar;
-
+int hp, danio, pocion = 5, op; //NOTA: valor de las pociones pendiente a especificar;
+Pociones pocion1;
 struct entidad{
 int hp, def, atk;
  
@@ -108,8 +114,25 @@ entidad personaje;//estadisticas del personaje
 
         if (op == 1)
         {
-            hp = Pocion(hp, pocion); //Funcion de la pocion que necesita los valores de la vida del jugador y la cantidad de vida q recupera la pocion (curacion de la pocion pendiente a determinar)
-            cout<<"Su vida es (utilizando funcion Pocion): "<<hp<<endl;
+            cout<<"Cual pocion desea usar: pequenia(1), mediana(2), grande(3)"<<endl;
+            cin>>op;
+            switch (op)
+            {
+            case 1:
+            hp = Pocion(hp, pocion1.pequenia); 
+                break;
+            case 2:
+            hp = Pocion(hp, pocion1.mediana); 
+            cout<<"Su vida es: "<<hp<<endl;
+                break;
+            case 3:
+            hp = Pocion(hp, pocion1.grande); 
+            cout<<"Su vida es: "<<hp<<endl;
+                break;
+            
+            default:
+                break;
+            }
         }else
         cout<<"tu vida es: "<<hp<<endl;
 
