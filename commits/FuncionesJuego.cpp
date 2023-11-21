@@ -41,10 +41,21 @@ int Pocion(int hp, int pocion){
     }
     return hp;
 }
+//Funcion para reducir la salud del jugador al recibir daño, necesita recibir la vida del jugador y el daño que ha recibido
+int Reducirhp(int hp, int danio){
+   if (hp <= 75)
+   {
+    hp= hp - danio;
+   }else if (hp <= 0)
+   {
+    cout<<"Game over";
+   }
+   return hp;
+}
 
 int main(){
 
-int hp, pocion = 20, op; //NOTA: valor de las pociones pendiente a especificar;
+int hp, danio, pocion = 20, op; //NOTA: valor de las pociones pendiente a especificar;
 
 struct entidad{
 int hp, def, atk;
@@ -87,9 +98,6 @@ entidad personaje;//estadisticas del personaje
     monstruos[4].hp = 90;
     monstruos[4].def = 16;
     monstruos[4].atk = 16;
-    
-    //simulando caso en el q el jugador recibe daño (Funcion de reducir daño en proceso)
-    hp = personaje.hp - monstruos[4].atk;
     
     //simulando caso en el que se le pregunte al jugador si desea curarse con la pocion
     cout<<"Te hicieron daño, tu vida ahora es: "<<hp<<endl;
