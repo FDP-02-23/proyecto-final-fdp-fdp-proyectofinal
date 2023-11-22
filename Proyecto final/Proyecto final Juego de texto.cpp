@@ -3,13 +3,21 @@
 #include <cctype>
 #include <string>
 #include < cmath >
+#include <windows.h>
+#include <stdio.h>
+
 using namespace std;
 
 //variable global importante ya que se necesita cambiar en differentes funciones para correr el programa
 int InstaciaDeCuarto = 0 ;
+bool finalizar = true;
 
-//inicio de funciones
+void type(const char* p);
+//funcion de localicacion de cuartos
 void SelecionDeCuarto(int Numcuarto);
+// impresion de menu de ayuda
+void opcionAyuda();
+// funcion individual de cuarto y su respective historia 
 void Cuarto0();
 void Cuarto1();
 
@@ -26,12 +34,12 @@ struct personaje
 
 
 // main llama la ubicacion del personaje para llamar la ubicacion .
-int main()
+int main(int argc, const char * avrg[])
 {
 	struct personaje jugador;
 	
-	cout << "cual es tu nuombre aventurero? : ";
-	cin >> jugador.Nombre;
+	type("cual es tu nombre ? :");
+		getline(cin, jugador.Nombre);
 
 	//repite la busqueda de cuarto 
 	do
@@ -39,7 +47,7 @@ int main()
 		SelecionDeCuarto(InstaciaDeCuarto);
 
 
-	} while (true);
+	} while (finalizar);
 	
    
 }
@@ -76,6 +84,7 @@ void SelecionDeCuarto(int Numcuarto) {
 	default:
 		break;
 	}
+	
 
 }
 
@@ -86,23 +95,27 @@ void Cuarto0() {
 	bool Salida = true; 
 	bool escogida = false;
 
-	cout << "te encuentras en cuarto 0 que vas hacer : \n" ;
+	type("te encuentras en cuarto 0 que vas hacer  \n\n");
 
-	cin.ignore();
-	getline(cin , opcion); 
-
-	transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
+	
 	
 
 	
 	
 	do
 	{
+		
+		cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
+		getline(cin, opcion);
+		transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
+		cout << opcion << endl;
+		
 
 		if (opcion == "moverse norte")
 		{
 			cout << "te mueves en direccion en la puerta al norte" << endl;
 			InstaciaDeCuarto = 1;
+			cout << InstaciaDeCuarto;
 			Salida = false;
 
 		}
@@ -112,12 +125,11 @@ void Cuarto0() {
 
 			if (escogida == true)
 			{
-				cout << "ya no hay nada que recoger" << endl;
-				
+				type("ya no hay nada que recoger\n\n");
 			}
 			else {
-				cout << "descripcion de la arma "<<endl;
-				//stats.ataque = stats.ataque + ; //equipamiento.nombredearma
+				type("descripcion de arma\n\n");
+				// funcion de equpar armadura 
 
 				escogida = true;
 			}
@@ -126,8 +138,12 @@ void Cuarto0() {
 		}
 		if (opcion == "ayuda") 
 		{
+			opcionAyuda();
 
-
+		}
+		if (opcion == "guardar progreso")
+		{
+			
 		}
 
 		
@@ -136,9 +152,39 @@ void Cuarto0() {
 
 }
 
+
+
 void Cuarto1() {
 
 	cout << "te encuentras en cuarto 2" << endl;
 }
+
+//imprime lista de comandos 
+void opcionAyuda() {
+	
+	cout << "\t\t********* Lista de comandos *********\n";
+	printf("%-35s%-35s\n", "1. Moverse (norte,sur,este,oeste)", "2. Recoger (arma,armadura)");
+	printf("%-35s%-35s\n\n", "3. Pelear (nombre mounstro)", "4. Guardar pogreso");
+	
+
+}
+
+//funcion para el efecto de escribir el texto 
+void type(const char *p) {
+
+	if (NULL == p)
+		return;
+	
+	while (*p)
+	{
+		printf("%c\xDB", *p++);
+		::Sleep(40);
+		printf("\b \b");
+		::Sleep(40);
+	}
+	::Sleep(300);
+}
+
+
 
 
