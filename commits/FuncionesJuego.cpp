@@ -80,8 +80,9 @@ int Reducirhp(int hp, int danio){
    }
    return hp;
 }
-// Funcion utilizada para imprimir lentamente el texto en pantalla para el usuario
-void EscribirLento(const string & texto, chrono::milliseconds velocidad) {  // en esta linea el const string& mensaje represntan el mensaje a escribir y la velociada deseada
+// Funcion utilizada para imprimir lentamente el texto en pantalla para el usuario (se mejoro la eficiencia)
+void EscribirLento(const string & texto) {  // en esta linea el const string& mensaje represntan el mensaje a escribir y la velociada deseada
+    chrono::milliseconds velocidad(100); //poneindo la velocidad aqui, esta siempre será 1 seg
     for (char c : texto) { //el for es utilizada para ir caracter por caracter 
         cout << c << flush; // lo muetra
         this_thread::sleep_for(velocidad); //hace una pausa (dependera de la velocidad)
@@ -90,12 +91,12 @@ void EscribirLento(const string & texto, chrono::milliseconds velocidad) {  // e
 
 int main(){
 
-int hp, danio, op; 
+int hp, danio, atk, op; 
 Pociones pocion1;
-
+Armas arma1;
 struct entidad{
 int hp, def, atk;
- 
+
 //se intregaron las estadisticas del jugador y de los monstruos
 };
 entidad personaje;//estadisticas del personaje
@@ -137,11 +138,15 @@ entidad personaje;//estadisticas del personaje
     
     hp = Reducirhp(personaje.hp,60); //invocando funcion de reducir vida, el valor del daño cambia, esto es un ejemplo
 
-    //simulando caso en el que se le pregunte al jugador si desea curarse con la pocion
-    cout<<"Te hicieron daño, tu vida ahora es: "<<hp<<endl;
-    cout<<"Deseas curarte con una pocion? 1(si)  2(No)"<<endl;
+    //simulando caso en el que se le pregunte al jugador si desea curarse con la pocion y simulando como se escibira el texto para el jugador
+    string texto = "Te hicieron daño, tu vida ahora es: "; 
+    EscribirLento(texto);
+    cout<<hp<<endl;
+    string texto2 = "Deseas curarte con una pocion? 1(si)  2(No)";
+    EscribirLento(texto2);
+    cout<<endl;
     cin>>op;
-
+        //Ejemplo de como se usarian las pociones
         if (op == 1)
         {
             cout<<"Cual pocion desea usar: pequenia(1), mediana(2), grande(3)"<<endl;
@@ -165,7 +170,7 @@ entidad personaje;//estadisticas del personaje
             }
         }else
         cout<<"tu vida es: "<<hp<<endl;
-
+        //ejemplo de uso de funcion Descansar
         if (hp <= 30)
         {
             cout<<"Tu vida es muy baja deseas descansar? si(1)  no(2)"<<endl;
@@ -177,5 +182,15 @@ entidad personaje;//estadisticas del personaje
             }else 
             cout<<"Tu vida es: "<<hp;            
         }
+        //Ejemplo de como se sumara el atk del jugador con las armas q encuentre
+        cout<<"Has encontrado un karambit, quiero recogerlo: si(1)  no(2)"<<endl;
+        cin>>op;
+        if (op == 1)
+        {
+            atk = (personaje.atk + arma1.karambit);
+            cout<<"Has recogido un karambit, tu atk ahora es: "<<atk<<endl;
+        }else
+            atk = personaje.atk;
+        
     return 0;
 }
