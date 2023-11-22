@@ -5,11 +5,31 @@
 
 using namespace std;
 
-struct Pociones
+struct Armas //Struct donde se almacenaran las armas del juego y sus respetivos valores de ataque (la cantidad de atk q le suman al atk base del jugador)
+{    
+    int karambit = 2;
+    int Katana = 4;
+    int hacha = 6;
+};
+
+struct Armaduras //Struct donde se almacenan las 2 Armaduras del juego, esta afecta los valores de defensa y movilidad del jugador
+{
+    int liviana [2] {6,-2};
+    int pesada [2] {4,2};
+};
+
+struct Pociones // Struct q almacena los valores de las 3 diferentes pociones q existen en el juego y la cantidad que cura cada una
 {
     int pequenia = 20;
     int mediana = 40;
     int grande = 75;
+};
+
+struct Equipamiento //Struct de equipamiento que almacena todo lo anterior
+{
+    Armas arma;
+    Armaduras armadura;
+    Pociones pocion;
 };
 
 //Funcion utilizada para mostrale un temporizador al jugador de los segundos transcurridos y la vida que esta recuperando (valores dados por la funcion Descansar)
