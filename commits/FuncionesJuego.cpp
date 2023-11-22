@@ -1,7 +1,9 @@
 #include <iomanip>
 #include <iostream>
-#include <stdlib.h>
-#include <unistd.h>
+#include <stdlib.h> 
+#include <unistd.h> //utilizada para manejar las funciones de tiempo (sleep)
+#include <chrono> //utilizada para controlar la funcion de escribir lento
+#include <thread> //utilizada para controlar la funcion de escribir lento
 
 using namespace std;
 
@@ -78,11 +80,19 @@ int Reducirhp(int hp, int danio){
    }
    return hp;
 }
+// Funcion utilizada para imprimir lentamente el texto en pantalla para el usuario
+void EscribirLento(const string & texto, chrono::milliseconds velocidad) {  // en esta linea el const string& mensaje represntan el mensaje a escribir y la velociada deseada
+    for (char c : texto) { //el for es utilizada para ir caracter por caracter 
+        cout << c << flush; // lo muetra
+        this_thread::sleep_for(velocidad); //hace una pausa (dependera de la velocidad)
+    }
+}
 
 int main(){
 
-int hp, danio, pocion = 5, op; //NOTA: valor de las pociones pendiente a especificar;
+int hp, danio, op; 
 Pociones pocion1;
+
 struct entidad{
 int hp, def, atk;
  
@@ -167,6 +177,5 @@ entidad personaje;//estadisticas del personaje
             }else 
             cout<<"Tu vida es: "<<hp;            
         }
-        
     return 0;
 }
