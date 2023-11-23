@@ -10,7 +10,7 @@ int hp, def, atk, agilidad;
 //funciones
 //===============================================================
 //funciones para el bono de ataque
-int bonoPersonaje(entidad personaje, entidad*monstruos, int monstruoEnCombate, int pPrincip, int ag){
+int bono(entidad personaje, entidad*monstruos, int monstruoEnCombate, int pPrincip, int ag){
     int bonus = 0;
     if(pPrincip == 1 && ag == 0){
         if(personaje.atk != 10){
@@ -31,13 +31,6 @@ int bonoPersonaje(entidad personaje, entidad*monstruos, int monstruoEnCombate, i
     }
     return bonus;
 }
-/*int bonoMonstruo(entidad*monstruos,int monstruoEnCombate){
-    int bonusAtk;
-    if(monstruos[monstruoEnCombate].atk != 10){
-        bonusAtk = ((monstruos[monstruoEnCombate].atk - 10)/2);
-    }
-    return bonusAtk;
-}*/
 //=================================================================
 //funcion para el dado
 int dado(int tipoDadoEnfrentamiento){
@@ -183,10 +176,12 @@ int TurnoMonstruo(entidad personaje, int ataqueBonoMonstruo, int tipoDadoEnfrent
                             //llamar funcion quitar vida:
                                 personaje.hp = personaje.hp - (daño1 + daño2 + ataqueBonoMonstruo);
                             if(personaje.hp <= 0){
+                                cout<<"-------------------------------------------------------"<<endl;
                                 cout<<"EL enemigo logra vencerte, pides piedad pero lo unico que le importa al monstruo es sangre!"<<endl;
                                 cout<<"-------------------------------------------------------"<<endl;
                             }
                 }else{
+                    cout<<"-------------------------------------------------------"<<endl;
                     cout<<"El enemigo corre furioso hacia ti, pero tu defensa logra repeler su ataque"<<endl;
                     cout<<"-------------------------------------------------------"<<endl;
                 }
@@ -295,11 +290,11 @@ int main(){
     personaje.agilidad = 10;
 
     entidad monstruos[5];//estadisticas de los monstruos
-    //posicion 0 es la del duende   |hp30,def07,atk06 
-    //posicion 1 es la del esqueleto|hp45,def12,atk08 
-    //posicion 2 es la del mimic    |hp50,def08,atk12 
-    //posicion 3 es la del centauro |hp60,def14,atk10 
-    //posicion 4 es la del dragon   |hp90,def16,atk16 
+    //posicion 0 es la del duende   |hp30,def07,atk06,ag12
+    //posicion 1 es la del esqueleto|hp45,def12,atk08,ag08 
+    //posicion 2 es la del mimic    |hp50,def08,atk12,ag10 
+    //posicion 3 es la del centauro |hp60,def14,atk10,ag14
+    //posicion 4 es la del dragon   |hp90,def16,atk16,ag16 
 
     //duende
     monstruos[0].hp = 30;
@@ -332,21 +327,22 @@ int main(){
     monstruos[4].agilidad = 16;
 
     monstruoEnCombate = 0;//esta variable sirve para saber contra que monstruo peleara, es la posicion del array monstruos
+
 //------------------------------------------------------------------------------------------------------------------------------
     //esta parte es para sacar el bono de ataque
     pPrincip = 1; //variable para saber si se esta sacando el bono de ataque del personaje principal o del monstruo
-    ataqueBonoPersonaje = bonoPersonaje(personaje,monstruos,monstruoEnCombate, pPrincip, ag);
+    ataqueBonoPersonaje = bono(personaje,monstruos,monstruoEnCombate, pPrincip, ag);
 
     pPrincip = 0;
-    ataqueBonoMonstruo = bonoPersonaje(personaje,monstruos,monstruoEnCombate, pPrincip, ag);
+    ataqueBonoMonstruo = bono(personaje,monstruos,monstruoEnCombate, pPrincip, ag);
 //------------------------------------------------------------------------------------------------------------------------------
     //esta parte es para sacar el bono de agilidad
     pPrincip = 1;
     ag = 1; 
-    agilidadBonoPersonaje = bonoPersonaje(personaje,monstruos,monstruoEnCombate, pPrincip, ag);
+    agilidadBonoPersonaje = bono(personaje,monstruos,monstruoEnCombate, pPrincip, ag);
 
     pPrincip = 0;
-    agilidadBonoMonstruo = bonoPersonaje(personaje,monstruos,monstruoEnCombate, pPrincip, ag);
+    agilidadBonoMonstruo = bono(personaje,monstruos,monstruoEnCombate, pPrincip, ag);
     ag = 0;
 //------------------------------------------------------------------------------------------------------------------------------    
     personaje.hp = enfrentamiento(monstruoEnCombate,monstruos,personaje,ataqueBonoPersonaje,ataqueBonoMonstruo,agilidadBonoPersonaje, agilidadBonoMonstruo, finCombate);
