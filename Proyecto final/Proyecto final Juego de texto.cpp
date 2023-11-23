@@ -6,11 +6,14 @@
 #include <windows.h>
 #include <stdio.h>
 
+
 using namespace std;
 
 //variable global importante ya que se necesita cambiar en differentes funciones para correr el programa
 int InstaciaDeCuarto = 0 ;
 bool finalizar = true;
+bool CuartoRevisado[10] {true,true,true,true,true,true,true,true,true, true};
+
 
 void type(const char* p);
 //funcion de localicacion de cuartos
@@ -28,8 +31,7 @@ struct personaje
 	int defensa = 10;
 	int ataque = 10;
 	int movilidad = 10;
-
-
+	
 };
 
 
@@ -95,60 +97,104 @@ void Cuarto0() {
 	bool Salida = true; 
 	bool escogida = false;
 
-	type("te encuentras en cuarto 0 que vas hacer  \n\n");
-
 	
-	
-
-	
-	
-	do
+	if (CuartoRevisado[InstaciaDeCuarto])
 	{
-		
-		cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
-		getline(cin, opcion);
-		transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
-		cout << opcion << endl;
-		
+		type("te encuentras en cuarto 0 que vas hacer  \n\n");
 
-		if (opcion == "moverse norte")
+		do
 		{
-			cout << "te mueves en direccion en la puerta al norte" << endl;
-			InstaciaDeCuarto = 1;
-			cout << InstaciaDeCuarto;
-			Salida = false;
 
+			cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
+			getline(cin, opcion);
+			transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
+			cout << opcion << endl;
+
+
+			if (opcion == "moverse norte")
+			{
+				cout << "te mueves en direccion en la puerta al norte" << endl;
+				InstaciaDeCuarto = 1;
+				cout << InstaciaDeCuarto;
+				Salida = false;
+
+			}
+			if (opcion == "recoger arma")
+			{
+
+
+				if (escogida == true)
+				{
+					type("ya no hay nada que recoger\n\n");
+				}
+				else {
+					type("descripcion de arma\n\n");
+					// funcion de equpar armadura 
+
+					escogida = true;
+				}
+
+
+			}
+			if (opcion == "ayuda")
+			{
+				opcionAyuda();
+
+			}
+			if (opcion == "guardar progreso")
+			{
+
+			}
+
+
+		} while (Salida);
+		if (escogida == true)
+		{
+			CuartoRevisado[InstaciaDeCuarto] = false;
 		}
-		if (opcion == "recoger arma")
-		{
-			
+	}
 
-			if (escogida == true)
+	/// <summary>
+	/// aque se forma la divion entre la histria si a sido  visistado el cuarto revisando si la pocicion del array es verdadera o falsa. El else sirve para no mostrar nuevamente los desarollos de la historia
+	/// </summary>
+	else
+	{
+		do
+		{
+
+			cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
+			getline(cin, opcion);
+			transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
+			cout << opcion << endl;
+
+
+			if (opcion == "moverse norte")
+			{
+				cout << "te mueves en direccion en la puerta al norte" << endl;
+				InstaciaDeCuarto = 1;
+				cout << InstaciaDeCuarto;
+				Salida = false;
+
+			}
+			if (opcion == "recoger arma")
 			{
 				type("ya no hay nada que recoger\n\n");
-			}
-			else {
-				type("descripcion de arma\n\n");
-				// funcion de equpar armadura 
 
-				escogida = true;
 			}
+			if (opcion == "ayuda")
+			{
+				opcionAyuda();
+
+			}
+			if (opcion == "guardar progreso")
+			{
 				
+			}
 
-		}
-		if (opcion == "ayuda") 
-		{
-			opcionAyuda();
 
-		}
-		if (opcion == "guardar progreso")
-		{
-			
-		}
 
-		
-
-	} while (Salida);
+		} while (Salida);
+	}
 
 }
 
@@ -156,7 +202,7 @@ void Cuarto0() {
 
 void Cuarto1() {
 
-	cout << "te encuentras en cuarto 2" << endl;
+	cout << "te encuentras en cuarto 1" << endl;
 }
 
 //imprime lista de comandos 
@@ -178,9 +224,9 @@ void type(const char *p) {
 	while (*p)
 	{
 		printf("%c\xDB", *p++);
-		::Sleep(40);
+		::Sleep(50);
 		printf("\b \b");
-		::Sleep(40);
+		::Sleep(50);
 	}
 	::Sleep(300);
 }
