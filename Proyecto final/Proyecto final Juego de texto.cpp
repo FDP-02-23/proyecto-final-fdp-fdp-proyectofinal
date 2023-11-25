@@ -5,6 +5,7 @@
 #include < cmath >
 #include <windows.h>
 #include <stdio.h>
+#include <fstream>
 
 
 using namespace std;
@@ -14,7 +15,9 @@ int InstaciaDeCuarto = 0 ;
 bool finalizar = true;
 bool CuartoRevisado[10] {true,true,true,true,true,true,true,true,true, true};
 
-
+//salvendo progreso;
+void GuardarProgreso();
+//impresion con effecto
 void type(const char* p);
 //funcion de localicacion de cuartos
 void SelecionDeCuarto(int Numcuarto);
@@ -41,7 +44,7 @@ int main(int argc, const char * avrg[])
 	struct personaje jugador;
 	
 	type("cual es tu nombre ? :");
-		getline(cin, jugador.Nombre);
+	getline(cin, jugador.Nombre);
 
 	//repite la busqueda de cuarto 
 	do
@@ -108,7 +111,7 @@ void Cuarto0() {
 			cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
 			getline(cin, opcion);
 			transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
-			cout << opcion << endl;
+			//cout << opcion << endl;
 
 
 			if (opcion == "moverse norte")
@@ -143,6 +146,7 @@ void Cuarto0() {
 			}
 			if (opcion == "guardar progreso")
 			{
+				void GuardarProgreso();
 
 			}
 
@@ -188,7 +192,7 @@ void Cuarto0() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				
+				void GuardarProgreso();
 			}
 
 
@@ -216,6 +220,8 @@ void opcionAyuda() {
 }
 
 //funcion para el efecto de escribir el texto 
+
+// inheritence convetir en clase for innheritance a los otros programas.
 void type(const char *p) {
 
 	if (NULL == p)
@@ -229,6 +235,33 @@ void type(const char *p) {
 		::Sleep(50);
 	}
 	::Sleep(300);
+}
+
+// sistema de guardado de variables para el progreso en el juego 
+void GuardarProgreso() {
+
+	ofstream ProgresoDelJugador("ProgresoSalvado.txt");
+	struct personaje jugador;
+
+	//primeras 5 son elnombre y estadisticas del jugador
+	ProgresoDelJugador << jugador.Nombre<<endl;
+	ProgresoDelJugador << jugador.HP<<endl;
+	ProgresoDelJugador << jugador.defensa << endl;
+	ProgresoDelJugador << jugador.ataque << endl;
+	ProgresoDelJugador << jugador.movilidad << endl;
+
+	//en el cuarto que el presonaje se encuentra 
+	ProgresoDelJugador << InstaciaDeCuarto << endl;
+
+
+	//variables del arreglo de cuarto revisado
+	for (int i = 0; i < 10; i++)
+	{
+		ProgresoDelJugador << CuartoRevisado[i] << endl;
+	}
+
+	ProgresoDelJugador.close();
+
 }
 
 
