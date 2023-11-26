@@ -242,7 +242,106 @@ void Cuarto0() {
 
 void Cuarto1() {
 
-	cout << "te encuentras en cuarto 1" << endl;
+	struct personaje stats;
+	string opcion;
+	bool Salida = true;
+	bool escogida = false;
+
+
+	if (CuartoRevisado[InstaciaDeCuarto])
+	{
+		type("te encuentras en cuarto 1 que vas hacer  \n\n");
+
+		do
+		{
+
+			cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
+			getline(cin, opcion);
+			transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
+			//cout << opcion << endl;
+
+
+			if (opcion == "moverse este")
+			{
+				cout << "te mueves en direccion en la puerta al este" << endl;
+				InstaciaDeCuarto = 2;
+				cout << InstaciaDeCuarto;
+				Salida = false;
+
+			}
+			
+			if (opcion == "Atacar duende")
+			{
+				
+				/// funcion de atacar
+				escogida = true;
+			}
+			if (opcion == "ayuda")
+			{
+				opcionAyuda();
+
+			}
+			if (opcion == "guardar progreso")
+			{
+				void GuardarProgreso();
+
+			}
+
+
+		} while (Salida);
+		if (escogida == true)
+		{
+			CuartoRevisado[InstaciaDeCuarto] = false;
+		}
+	}
+
+	/// <summary>
+	/// aque se forma la divion entre la histria si a sido  visistado el cuarto revisando si la pocicion del array es verdadera o falsa. El else sirve para no mostrar nuevamente los desarollos de la historia
+	/// </summary>
+	else
+	{
+		do
+		{
+
+			cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
+			getline(cin, opcion);
+			transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
+			cout << opcion << endl;
+
+
+			if (opcion == "moverse norte")
+			{
+				cout << "te mueves en direccion en la puerta al norte" << endl;
+				InstaciaDeCuarto = 1;
+				cout << InstaciaDeCuarto;
+				Salida = false;
+
+			}
+			if (opcion == "recoger arma")
+			{
+				type("ya no hay nada que recoger\n\n");
+
+			}
+			if (opcion == "Atacar duende")
+			{
+				type("el enemigo fue derotado ");
+
+			}
+			if (opcion == "ayuda")
+			{
+				opcionAyuda();
+
+			}
+			if (opcion == "guardar progreso")
+			{
+				void GuardarProgreso();
+			}
+
+
+
+		} while (Salida);
+	}
+
 }
 
 //imprime lista de comandos 
@@ -250,7 +349,7 @@ void opcionAyuda() {
 	
 	cout << "\t\t********* Lista de comandos *********\n";
 	printf("%-35s%-35s\n", "1. Moverse (norte,sur,este,oeste)", "2. Recoger (arma,armadura)");
-	printf("%-35s%-35s\n\n", "3. Pelear (nombre mounstro)", "4. Guardar pogreso")
+	printf("%-35s%-35s\n\n", "3. Atacar (nombre mounstro)", "4. Guardar pogreso")
 		;
 	
 
