@@ -15,8 +15,10 @@ int InstaciaDeCuarto = 0 ;
 bool finalizar = true;
 bool CuartoRevisado[10] {true,true,true,true,true,true,true,true,true, true};
 
-//salvendo progreso;
+//guardando progreso;
 void GuardarProgreso();
+// iniciar de ultima instancia de guardado
+bool Leerprogreso();
 //impresion con effecto
 void type(const char* p);
 //funcion de localicacion de cuartos
@@ -39,23 +41,56 @@ struct personaje
 
 
 // main llama la ubicacion del personaje para llamar la ubicacion .
-int main(int argc, const char * avrg[])
+int main(int argc, const char* avrg[])
 {
 	struct personaje jugador;
-	
-	type("cual es tu nombre ? :");
-	getline(cin, jugador.Nombre);
+	string OpcionGuardado;
 
-	//repite la busqueda de cuarto 
+
+	type("comenzar nueva partida o regresar al calabozo\n");
+
 	do
 	{
-		SelecionDeCuarto(InstaciaDeCuarto);
+		type("Escribe una de las opciones aqui : ");
+		getline(cin, OpcionGuardado);
+
+		if (OpcionGuardado == "comenzar nueva partida")
+		{
+			type("cual es tu nombre ? :");
+			getline(cin, jugador.Nombre);
+
+			//repite la busqueda de cuarto 
+			do
+			{
+				SelecionDeCuarto(InstaciaDeCuarto);
 
 
-	} while (finalizar);
+			} while (finalizar);
+
+
+		}
+		else if (OpcionGuardado == "regresar al calabozo")
+		{
+
+			if (Leerprogreso())
+			{
+				do
+				{
+					SelecionDeCuarto(InstaciaDeCuarto);
+
+
+				} while (finalizar);
+			}
+		}
+
+		} while (finalizar);
+
+
+	}
+
+
 	
-   
-}
+	
 
 // funcion de seleccion de cuarto en la historia
 void SelecionDeCuarto(int Numcuarto) {
@@ -86,6 +121,7 @@ void SelecionDeCuarto(int Numcuarto) {
 	case 9:
 		break;
 
+		//no es necesario ya que el numero siempre va a estar en el valor correcto 
 	default:
 		break;
 	}
@@ -214,7 +250,8 @@ void opcionAyuda() {
 	
 	cout << "\t\t********* Lista de comandos *********\n";
 	printf("%-35s%-35s\n", "1. Moverse (norte,sur,este,oeste)", "2. Recoger (arma,armadura)");
-	printf("%-35s%-35s\n\n", "3. Pelear (nombre mounstro)", "4. Guardar pogreso");
+	printf("%-35s%-35s\n\n", "3. Pelear (nombre mounstro)", "4. Guardar pogreso")
+		;
 	
 
 }
@@ -230,17 +267,17 @@ void type(const char *p) {
 	while (*p)
 	{
 		printf("%c\xDB", *p++);
-		::Sleep(50);
+		::Sleep(40);
 		printf("\b \b");
-		::Sleep(50);
+		::Sleep(40);
 	}
-	::Sleep(300);
+	::Sleep(350);
 }
 
 // sistema de guardado de variables para el progreso en el juego 
 void GuardarProgreso() {
 
-	ofstream ProgresoDelJugador("ProgresoSalvado.txt");
+	ofstream ProgresoDelJugador("ProgresoGuardado.txt");
 	struct personaje jugador;
 
 	//primeras 5 son elnombre y estadisticas del jugador
@@ -253,6 +290,7 @@ void GuardarProgreso() {
 	//en el cuarto que el presonaje se encuentra 
 	ProgresoDelJugador << InstaciaDeCuarto << endl;
 
+	cout << "se encontro ";
 
 	//variables del arreglo de cuarto revisado
 	for (int i = 0; i < 10; i++)
@@ -264,6 +302,39 @@ void GuardarProgreso() {
 
 }
 
+bool Leerprogreso() {
+	struct personaje jugador;
+	ifstream JuegoGuardado;
+	JuegoGuardado.open("ProgresoGuardado.txt");
+
+	if (JuegoGuardado.is_open() == true)
+	{
+		//primeras 5 son elnombre y estadisticas del jugador
+		JuegoGuardado >> jugador.Nombre;
+		JuegoGuardado >> jugador.HP;
+		JuegoGuardado >> jugador.defensa;
+		JuegoGuardado >> jugador.ataque;
+		JuegoGuardado >> jugador.movilidad;
+
+		//en el cuarto que el presonaje se encuentra 
+		JuegoGuardado >> InstaciaDeCuarto;
 
 
+		//variables del arreglo de cuarto revisado
+		for (int i = 0; i < 10; i++)
+		{
+			JuegoGuardado >> CuartoRevisado[i];
+		}
 
+		JuegoGuardado.close();
+
+		return true;
+	}else
+	{
+		type("No hay progreso guardados\n");
+		return false;
+
+	}
+
+
+}
