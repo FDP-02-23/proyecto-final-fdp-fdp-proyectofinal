@@ -28,6 +28,8 @@ void opcionAyuda();
 // funcion individual de cuarto y su respective historia 
 void Cuarto0();
 void Cuarto1();
+void cuarto2();
+void cuarto3();
 
 struct personaje
 {
@@ -105,8 +107,10 @@ void SelecionDeCuarto(int Numcuarto) {
 		Cuarto1();
 		break;
 	case 2:
+		cuarto2();
 		break;
 	case 3:
+		cuarto3();
 		break;
 	case 4:
 		break;
@@ -269,6 +273,14 @@ void Cuarto1() {
 				Salida = false;
 
 			}
+			if (opcion == "moverse sur")
+			{
+				cout << "te mueves en direccion en la puerta al sur" << endl;
+				InstaciaDeCuarto = 0;
+				cout << InstaciaDeCuarto;
+				Salida = false;
+
+			}
 			
 			if (opcion == "Atacar duende")
 			{
@@ -306,22 +318,26 @@ void Cuarto1() {
 			cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
 			getline(cin, opcion);
 			transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
-			cout << opcion << endl;
+			
 
 
-			if (opcion == "moverse norte")
+			if (opcion == "moverse este")
 			{
-				cout << "te mueves en direccion en la puerta al norte" << endl;
-				InstaciaDeCuarto = 1;
+				cout << "te mueves en direccion en la puerta al neste" << endl;
+				InstaciaDeCuarto = 2;
 				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
-			if (opcion == "recoger arma")
+			if (opcion == "moverse sur")
 			{
-				type("ya no hay nada que recoger\n\n");
+				cout << "te mueves en direccion en la puerta al sur" << endl;
+				InstaciaDeCuarto = 0;
+				cout << InstaciaDeCuarto;
+				Salida = false;
 
 			}
+			
 			if (opcion == "Atacar duende")
 			{
 				type("el enemigo fue derotado ");
@@ -344,6 +360,263 @@ void Cuarto1() {
 
 }
 
+void cuarto2() {
+
+	struct personaje stats;
+	string opcion;
+	bool Salida = true;
+	bool escogida = false;
+
+
+	if (CuartoRevisado[InstaciaDeCuarto])
+	{
+		type("te encuentras en cuarto 2 que vas hacer  \n\n");
+
+		do
+		{
+
+			cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
+			getline(cin, opcion);
+			transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
+			//cout << opcion << endl;
+
+
+			if (opcion == "moverse este")
+			{
+				cout << "te mueves en direccion en la puerta al este" << endl;
+				InstaciaDeCuarto = 5;
+				cout << InstaciaDeCuarto;
+				Salida = false;
+
+			}
+			if (opcion == "moverse sur")
+			{
+				cout << "te mueves en direccion en la puerta al sur" << endl;
+				InstaciaDeCuarto = 3;
+				cout << InstaciaDeCuarto;
+				Salida = false;
+
+			}
+			if (opcion == "moverse oeste")
+			{
+				cout << "te mueves en direccion en la puerta al sur" << endl;
+				InstaciaDeCuarto = 1;
+				cout << InstaciaDeCuarto;
+				Salida = false;
+
+			}
+			if (opcion == "recoger arma")
+			{
+
+
+				if (escogida == true)
+				{
+					type("ya no hay nada que recoger\n\n");
+				}
+				else {
+					type("descripcion de arma\n\n");
+					// funcion de equpar armadura 
+
+					escogida = true;
+				}
+
+
+			}
+			if (opcion == "ayuda")
+			{
+				opcionAyuda();
+
+			}
+			if (opcion == "guardar progreso")
+			{
+				void GuardarProgreso();
+
+			}
+
+
+		} while (Salida);
+		if (escogida == true)
+		{
+			CuartoRevisado[InstaciaDeCuarto] = false;
+		}
+	}
+
+	/// <summary>
+	/// aque se forma la divion entre la histria si a sido  visistado el cuarto revisando si la pocicion del array es verdadera o falsa. El else sirve para no mostrar nuevamente los desarollos de la historia
+	/// </summary>
+	else
+	{
+		do
+		{
+
+			cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
+			getline(cin, opcion);
+			transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
+			//cout << opcion << endl;
+
+
+			if (opcion == "moverse este")
+			{
+				cout << "te mueves en direccion en la puerta al este" << endl;
+				InstaciaDeCuarto = 5;
+				cout << InstaciaDeCuarto;
+				Salida = false;
+
+			}
+			if (opcion == "moverse sur")
+			{
+				cout << "te mueves en direccion en la puerta al sur" << endl;
+				InstaciaDeCuarto = 3;
+				cout << InstaciaDeCuarto;
+				Salida = false;
+
+			}
+			if (opcion == "moverse oeste")
+			{
+				cout << "te mueves en direccion en la puerta al oeste" << endl;
+				InstaciaDeCuarto = 1;
+				cout << InstaciaDeCuarto;
+				Salida = false;
+
+			}
+			if (opcion == "recoger arma")
+			{
+				type("ya no hay nada que recoger\n\n");
+
+			}
+			if (opcion == "ayuda")
+			{
+				opcionAyuda();
+
+			}
+			if (opcion == "guardar progreso")
+			{
+				void GuardarProgreso();
+			}
+
+
+
+		} while (Salida);
+	}
+}
+
+void cuarto3() {
+
+	struct personaje stats;
+	string opcion;
+	bool Salida = true;
+	bool escogida = false;
+
+
+	if (CuartoRevisado[InstaciaDeCuarto])
+	{
+		type("te encuentras en cuarto 3 que vas hacer  \n\n");
+
+		do
+		{
+
+			cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
+			getline(cin, opcion);
+			transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
+			//cout << opcion << endl;
+
+
+			if (opcion == "moverse este")
+			{
+				cout << "te mueves en direccion en la puerta al este" << endl;
+				InstaciaDeCuarto = 4;
+				cout << InstaciaDeCuarto;
+				Salida = false;
+
+			}
+			if (opcion == "moverse norte")
+			{
+				cout << "te mueves en direccion en la puerta al sur" << endl;
+				InstaciaDeCuarto = 2;
+				cout << InstaciaDeCuarto;
+				Salida = false;
+
+			}
+			//temporal diferente monstruo
+			if (opcion == "Atacar duende")
+			{
+
+				/// funcion de atacar
+				escogida = true;
+			}
+			if (opcion == "ayuda")
+			{
+				opcionAyuda();
+
+			}
+			if (opcion == "guardar progreso")
+			{
+				void GuardarProgreso();
+
+			}
+
+
+		} while (Salida);
+		if (escogida == true)
+		{
+			CuartoRevisado[InstaciaDeCuarto] = false;
+		}
+	}
+
+	/// <summary>
+	/// aque se forma la divion entre la histria si a sido  visistado el cuarto revisando si la pocicion del array es verdadera o falsa. El else sirve para no mostrar nuevamente los desarollos de la historia
+	/// </summary>
+	else
+	{
+		do
+		{
+
+			cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
+			getline(cin, opcion);
+			transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
+
+
+
+			if (opcion == "moverse este")
+			{
+				cout << "te mueves en direccion en la puerta al este" << endl;
+				InstaciaDeCuarto = 4;
+				cout << InstaciaDeCuarto;
+				Salida = false;
+
+			}
+			if (opcion == "moverse norte")
+			{
+				cout << "te mueves en direccion en la puerta al sur" << endl;
+				InstaciaDeCuarto = 2;
+				cout << InstaciaDeCuarto;
+				Salida = false;
+
+			}
+			//temporal diferente monstruo
+			if (opcion == "Atacar duende")
+			{
+				type("el enemigo fue derotado ");
+
+			}
+			if (opcion == "ayuda")
+			{
+				opcionAyuda();
+
+			}
+			if (opcion == "guardar progreso")
+			{
+				void GuardarProgreso();
+			}
+
+
+
+		} while (Salida);
+	}
+}
+
+
+
 //imprime lista de comandos 
 void opcionAyuda() {
 	
@@ -357,7 +630,7 @@ void opcionAyuda() {
 
 //funcion para el efecto de escribir el texto 
 
-// inheritence convetir en clase for innheritance a los otros programas.
+// idea: inheritence convetir en clase for innheritance a los otros programas.
 void type(const char *p) {
 
 	if (NULL == p)
@@ -406,6 +679,7 @@ bool Leerprogreso() {
 	ifstream JuegoGuardado;
 	JuegoGuardado.open("ProgresoGuardado.txt");
 
+	// se verifica si funciona y guarda todas las varibles y las inicia 
 	if (JuegoGuardado.is_open() == true)
 	{
 		//primeras 5 son elnombre y estadisticas del jugador
