@@ -53,8 +53,8 @@ int main(int argc, const char* avrg[])
 	struct personaje jugador;
 	string OpcionGuardado;
 
-
-	type("comenzar nueva partida o regresar al calabozo\n");
+	type("Bienvenido aventuro , hoy demostraras tu coraje al intentar escapar el calabozo. Lograras salir un heroe? \n");
+	type("Quieres : comenzar nueva partida o regresar al calabozo\n");
 
 	do
 	{
@@ -148,45 +148,55 @@ void SelecionDeCuarto(int Numcuarto) {
 /// cada cuarto brinda una parte de historia y una parte de un cuarto ya explorado controolado por el array bool CuartoRevisado[] , para dodnde se revisa si se visito el cuarto.
 /// corre las opciones de historria atraves de ifs que son designados comandos que corren funciones o soluciones de movimiento.
 /// los cuartos contienen una funcion especifica ya sea encontrar armas, pelea o armadura , cuando una de estas funciones son cumplidas muestra que el cuartoo ya fue revisado.
+/// finalmente para mas detalle la funcion cuartos0() esta detallada con todas las posibles acciones que se pueden tomar y como funciona el codigo que es similar atraves de todas.
 /// </summary>
 // cuarto de inicio
 void Cuarto0() {
-	// la opcion muestra 
+
+	// estadisticas necesarias
 	struct personaje stats;
+	// ingreso de lo escrito por jugador
 	string opcion;
+
+	// salida cierra el loop para mostar salida de cuarto
 	bool Salida = true; 
+	// se cambia solamente cuando cuando un evento importante en el cuarto es completado (combate,armas,armadura) cambiando al final que el cuarto fue revisado 
 	bool escogida = false;
 
-	
+	// el if revisa si el cuarto ah sido revisado 
 	if (CuartoRevisado[InstaciaDeCuarto])
 	{
+		// historia y descripcion del cuarto
 		type("te encuentras en cuarto 0 que vas hacer  \n\n");
 
+		// repite las opciones que se pueden hacer mientras se encuentre en el cuarto 
 		do
 		{
-
+			//pide ingreso de accion
 			cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
 			getline(cin, opcion);
 			transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
-			//cout << opcion << endl;
+		
 
-
+			// movimiento a diffrente cuarto 
 			if (opcion == "moverse norte")
 			{
 				cout << "te mueves en direccion en la puerta al norte" << endl;
+				// cambioo de cuarto y salida del looop actualizada
 				InstaciaDeCuarto = 1;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
+			//armas o armadura  incremento dirrecto a las estadisticas del personaje
 			if (opcion == "recoger arma")
 			{
 
-
+				// intenta repetir accion pero no hay objeto que agarar
 				if (escogida == true)
 				{
 					type("ya no hay nada que recoger\n\n");
 				}
+				// por primera ves se encuentra el arma o armadura
 				else {
 					type("descripcion de arma\n\n");
 					// funcion de equpar armadura 
@@ -194,13 +204,23 @@ void Cuarto0() {
 					escogida = true;
 				}
 
-
 			}
+			// siguiente se encuentra la funcion de ataque similar a la de armas cambia el valor final como parte crucial de la historia
+			/*if (opcion == "Atacar duende")
+			{
+
+				/// funcion de atacar
+				escogida = true;
+			}*/
+
+			// ayuda muestra un menu con todas la acciones possibles en el cuarto 
 			if (opcion == "ayuda")
 			{
 				opcionAyuda();
 
 			}
+			// guarda progreso 
+			// posibles modificaciones para seguir jugando o cerrar el juego ;
 			if (opcion == "guardar progreso")
 			{
 				void GuardarProgreso();
@@ -209,6 +229,7 @@ void Cuarto0() {
 
 
 		} while (Salida);
+		// if determina si la parte esencial de la historia se completo  entonces cambia el valor de CuartoRevisado[InstaciaDeCuarto] en la pocicion del cuarto
 		if (escogida == true)
 		{
 			CuartoRevisado[InstaciaDeCuarto] = false;
@@ -216,10 +237,13 @@ void Cuarto0() {
 	}
 
 	/// <summary>
-	/// aque se forma la divion entre la histria si a sido  visistado el cuarto revisando si la pocicion del array es verdadera o falsa. El else sirve para no mostrar nuevamente los desarollos de la historia
+	/// aqui se forma la divion entre la histria si a sido  visistado el cuarto revisando si la pocicion del array es verdadera o falsa. El else sirve para no mostrar nuevamente los desarollos de la historia
 	/// </summary>
 	else
 	{
+		// repite el mismo esquema de la parte del if encontrado arriba solamente con opciones mas reducidas y una descripccio corta
+
+		//insertar descripcion corta aqui
 		do
 		{
 
@@ -285,7 +309,6 @@ void Cuarto1() {
 			{
 				cout << "te mueves en direccion en la puerta al este" << endl;
 				InstaciaDeCuarto = 2;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -293,7 +316,6 @@ void Cuarto1() {
 			{
 				cout << "te mueves en direccion en la puerta al sur" << endl;
 				InstaciaDeCuarto = 0;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -341,7 +363,6 @@ void Cuarto1() {
 			{
 				cout << "te mueves en direccion en la puerta al neste" << endl;
 				InstaciaDeCuarto = 2;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -349,7 +370,6 @@ void Cuarto1() {
 			{
 				cout << "te mueves en direccion en la puerta al sur" << endl;
 				InstaciaDeCuarto = 0;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -402,7 +422,6 @@ void cuarto2() {
 			{
 				cout << "te mueves en direccion en la puerta al este" << endl;
 				InstaciaDeCuarto = 5;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -410,7 +429,6 @@ void cuarto2() {
 			{
 				cout << "te mueves en direccion en la puerta al sur" << endl;
 				InstaciaDeCuarto = 3;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -418,7 +436,6 @@ void cuarto2() {
 			{
 				cout << "te mueves en direccion en la puerta al sur" << endl;
 				InstaciaDeCuarto = 1;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -476,7 +493,6 @@ void cuarto2() {
 			{
 				cout << "te mueves en direccion en la puerta al este" << endl;
 				InstaciaDeCuarto = 5;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -484,7 +500,6 @@ void cuarto2() {
 			{
 				cout << "te mueves en direccion en la puerta al sur" << endl;
 				InstaciaDeCuarto = 3;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -492,7 +507,6 @@ void cuarto2() {
 			{
 				cout << "te mueves en direccion en la puerta al oeste" << endl;
 				InstaciaDeCuarto = 1;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -543,7 +557,6 @@ void cuarto3() {
 			{
 				cout << "te mueves en direccion en la puerta al este" << endl;
 				InstaciaDeCuarto = 4;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -551,7 +564,6 @@ void cuarto3() {
 			{
 				cout << "te mueves en direccion en la puerta al sur" << endl;
 				InstaciaDeCuarto = 2;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -599,7 +611,6 @@ void cuarto3() {
 			{
 				cout << "te mueves en direccion en la puerta al este" << endl;
 				InstaciaDeCuarto = 4;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -607,7 +618,6 @@ void cuarto3() {
 			{
 				cout << "te mueves en direccion en la puerta al sur" << endl;
 				InstaciaDeCuarto = 2;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -659,7 +669,6 @@ void cuarto4() {
 			{
 				cout << "Te mueves en direccion en la puerta al oeste" << endl;
 				InstaciaDeCuarto = 3;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -667,7 +676,6 @@ void cuarto4() {
 			{
 				cout << "te mueves en direccion en la puerta al norte" << endl;
 				InstaciaDeCuarto = 5;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -725,7 +733,6 @@ void cuarto4() {
 			{
 				cout << "te mueves en direccion en la puerta al oeste" << endl;
 				InstaciaDeCuarto = 3;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -733,7 +740,6 @@ void cuarto4() {
 			{
 				cout << "te mueves en direccion en la puerta al norte" << endl;
 				InstaciaDeCuarto = 5;
-				cout << InstaciaDeCuarto;
 				Salida = false;
 
 			}
@@ -768,7 +774,7 @@ void cuarto5() {
 
 	if (CuartoRevisado[InstaciaDeCuarto])
 	{
-		type("te encuentras en cuarto 1 que vas hacer  \n\n");
+		type("te encuentras en cuarto 5 que vas hacer  \n\n");
 
 		do
 		{
@@ -1118,7 +1124,122 @@ void cuarto7() {
 
 //cuarto armadura
 void cuarto8() {
+	struct personaje stats;
+	string opcion;
+	bool Salida = true;
+	bool escogida = false;
 
+
+	if (CuartoRevisado[InstaciaDeCuarto])
+	{
+		type("te encuentras en cuarto 8 que vas hacer  \n\n");
+
+		do
+		{
+
+			cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
+			getline(cin, opcion);
+			transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
+			//cout << opcion << endl;
+
+
+			if (opcion == "moverse norte")
+			{
+				cout << "Te mueves en direccion en la puerta al norte" << endl;
+				InstaciaDeCuarto = 9;
+				Salida = false;
+
+			}
+			if (opcion == "moverse sur")
+			{
+				cout << "te mueves en direccion en la puerta al sur" << endl;
+				InstaciaDeCuarto = 7;
+				Salida = false;
+
+			}
+			if (opcion == "recoger armadura")
+			{
+
+
+				if (escogida == true)
+				{
+					type("ya no hay nada que recoger\n\n");
+				}
+				else {
+					type("descripcion de armarmadura\n\n");
+					// funcion de equpar armadura 
+
+					escogida = true;
+				}
+
+
+			}
+			if (opcion == "ayuda")
+			{
+				opcionAyuda();
+
+			}
+			if (opcion == "guardar progreso")
+			{
+				void GuardarProgreso();
+
+			}
+
+
+		} while (Salida);
+		if (escogida == true)
+		{
+			CuartoRevisado[InstaciaDeCuarto] = false;
+		}
+	}
+
+	/// <summary>
+	/// aque se forma la divion entre la histria si a sido  visistado el cuarto revisando si la pocicion del array es verdadera o falsa. El else sirve para no mostrar nuevamente los desarollos de la historia
+	/// </summary>
+	else
+	{
+		do
+		{
+
+			cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
+			getline(cin, opcion);
+			transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
+			//cout << opcion << endl;
+
+
+			if (opcion == "moverse norte")
+			{
+				cout << "te mueves en direccion en la puerta al oeste" << endl;
+				InstaciaDeCuarto = 9;
+				Salida = false;
+
+			}
+			if (opcion == "moverse sur")
+			{
+				cout << "te mueves en direccion en la puerta al norte" << endl;
+				InstaciaDeCuarto = 7;
+				Salida = false;
+
+			}
+			if (opcion == "recoger armadura")
+			{
+				type("ya no hay nada que recoger\n\n");
+
+			}
+			if (opcion == "ayuda")
+			{
+				opcionAyuda();
+
+			}
+			if (opcion == "guardar progreso")
+			{
+				void GuardarProgreso();
+			}
+
+
+
+		} while (Salida);
+	}
 }
 
 
@@ -1144,11 +1265,11 @@ void type(const char *p) {
 	while (*p)
 	{
 		printf("%c\xDB", *p++);
-		::Sleep(40);
+		::Sleep(30);
 		printf("\b \b");
-		::Sleep(40);
+		::Sleep(30);
 	}
-	::Sleep(350);
+	::Sleep(300);
 }
 
 // sistema de guardado de variables para el progreso en el juego 
