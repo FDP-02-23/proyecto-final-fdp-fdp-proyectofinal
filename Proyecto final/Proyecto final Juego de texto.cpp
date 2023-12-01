@@ -1694,7 +1694,7 @@ int Descansar(entidad& personaje) {
 //=========================================================================================================
 //funcion para "correr" o salir de combate
 int correr(entidad& personaje) {
-	int opDescansar;
+	int opDescansar=0;
 	cout << "Corres y te escondes del monstruo mientras el se va" << endl;
 	//el personaje vuelve a la camara anterior, resta de variable de la camara:
 
