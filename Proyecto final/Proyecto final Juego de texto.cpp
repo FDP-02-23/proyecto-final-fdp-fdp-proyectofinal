@@ -47,6 +47,8 @@ struct personaje
 };
 
 
+
+
 // main llama la ubicacion del personaje para llamar la ubicacion .
 int main(int argc, const char* avrg[])
 {
@@ -60,11 +62,14 @@ int main(int argc, const char* avrg[])
 	{
 		type("Escribe una de las opciones aqui : ");
 		getline(cin, OpcionGuardado);
+		
+
 
 		if (OpcionGuardado == "comenzar nueva partida")
 		{
 			type("cual es tu nombre ? :");
 			getline(cin, jugador.Nombre);
+			cout << jugador.Nombre;
 
 			//repite la busqueda de cuarto 
 			do
@@ -199,7 +204,7 @@ void Cuarto0() {
 				// por primera ves se encuentra el arma o armadura
 				else {
 					type("descripcion de arma\n\n");
-					// funcion de equpar armadura 
+					// funcion de equipar armadura 
 
 					escogida = true;
 				}
@@ -223,7 +228,7 @@ void Cuarto0() {
 			// posibles modificaciones para seguir jugando o cerrar el juego ;
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				 GuardarProgreso();
 
 			}
 
@@ -273,7 +278,8 @@ void Cuarto0() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				GuardarProgreso();
+				
 			}
 
 
@@ -333,7 +339,7 @@ void Cuarto1() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				 GuardarProgreso();
 
 			}
 
@@ -386,7 +392,7 @@ void Cuarto1() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				GuardarProgreso();
 			}
 
 
@@ -463,7 +469,7 @@ void cuarto2() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				 GuardarProgreso();
 
 			}
 
@@ -581,7 +587,7 @@ void cuarto3() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				 GuardarProgreso();
 
 			}
 
@@ -634,7 +640,7 @@ void cuarto3() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				 GuardarProgreso();
 			}
 
 
@@ -703,7 +709,7 @@ void cuarto4() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				 GuardarProgreso();
 
 			}
 
@@ -755,7 +761,7 @@ void cuarto4() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				 GuardarProgreso();
 			}
 
 
@@ -820,7 +826,7 @@ void cuarto5() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				 GuardarProgreso();
 
 			}
 
@@ -880,7 +886,7 @@ void cuarto5() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				 GuardarProgreso();
 			}
 
 
@@ -949,7 +955,7 @@ void cuarto6() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				 GuardarProgreso();
 
 			}
 
@@ -1001,7 +1007,7 @@ void cuarto6() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				 GuardarProgreso();
 			}
 
 
@@ -1060,7 +1066,7 @@ void cuarto7() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				 GuardarProgreso();
 
 			}
 
@@ -1113,7 +1119,7 @@ void cuarto7() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				 GuardarProgreso();
 			}
 
 
@@ -1181,7 +1187,7 @@ void cuarto8() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				 GuardarProgreso();
 
 			}
 
@@ -1233,7 +1239,7 @@ void cuarto8() {
 			}
 			if (opcion == "guardar progreso")
 			{
-				void GuardarProgreso();
+				 GuardarProgreso();
 			}
 
 
@@ -1242,14 +1248,52 @@ void cuarto8() {
 	}
 }
 
+void cuarto9() {
+
+	struct personaje stats;
+	string opcion;
+	bool Salida = true;
+
+
+	do
+	{
+		cout << "que accion vas a tomar aventurero (escribe 'ayuda' para ver comandos posibles) : ";
+		getline(cin, opcion);
+		transform(opcion.begin(), opcion.end(), opcion.begin(), ::tolower);
+
+
+		if (opcion == "Atacar dragon")
+		{
+			// funcion de pelea
+			
+			//funcion de cerar juego o regresar a ultimo guardado
+
+
+			
+		}
+		if (opcion == "ayuda")
+		{
+			type("ataca por tu vida");
+
+		}
+		if (opcion == "guardar progreso")
+		{
+			type("no hay donde correr tu unica opcion es pelear...");
+
+		}
+	} while (Salida);
+	
+
+
+}
+
 
 //imprime lista de comandos 
 void opcionAyuda() {
 	
 	cout << "\t\t********* Lista de comandos *********\n";
 	printf("%-35s%-35s\n", "1. Moverse (norte,sur,este,oeste)", "2. Recoger (arma,armadura)");
-	printf("%-35s%-35s\n\n", "3. Atacar (nombre mounstro)", "4. Guardar pogreso")
-		;
+	printf("%-35s%-35s\n\n", "3. Atacar (nombre mounstro)", "4. Guardar pogreso");
 	
 
 }
@@ -1274,9 +1318,11 @@ void type(const char *p) {
 
 // sistema de guardado de variables para el progreso en el juego 
 void GuardarProgreso() {
-
-	ofstream ProgresoDelJugador("ProgresoGuardado.txt");
 	struct personaje jugador;
+	cout << jugador.Nombre;
+	ofstream ProgresoDelJugador("ProgresoGuardado.txt");
+	
+	
 
 	//primeras 5 son elnombre y estadisticas del jugador
 	ProgresoDelJugador << jugador.Nombre<<endl;
@@ -1288,7 +1334,6 @@ void GuardarProgreso() {
 	//en el cuarto que el presonaje se encuentra 
 	ProgresoDelJugador << InstaciaDeCuarto << endl;
 
-	cout << "se encontro ";
 
 	//variables del arreglo de cuarto revisado
 	for (int i = 0; i < 10; i++)
@@ -1296,6 +1341,7 @@ void GuardarProgreso() {
 		ProgresoDelJugador << CuartoRevisado[i] << endl;
 	}
 
+	cout << "se guardo";
 	ProgresoDelJugador.close();
 
 }
@@ -1308,6 +1354,7 @@ bool Leerprogreso() {
 	// se verifica si funciona y guarda todas las varibles y las inicia 
 	if (JuegoGuardado.is_open() == true)
 	{
+		cout << "\nse encontro progreso";
 		//primeras 5 son elnombre y estadisticas del jugador
 		JuegoGuardado >> jugador.Nombre;
 		JuegoGuardado >> jugador.HP;
